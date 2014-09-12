@@ -7,3 +7,15 @@
 //
 
 #include "fileHandler.h"
+
+void FILE_HANDLER::addFileName(std::string) {
+    
+}
+
+bool FILE_HANDLER::searchFileName(std::string) {
+    return false;
+}
+
+std::vector<std::string> FILE_HANDLER::getFileList() {
+    return std::vector<std::string>();
+}
