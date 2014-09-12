@@ -35,6 +35,9 @@ int main(int argc, const char * argv[])
     clock_t start_time,end_time;
     start_time=clock();
     
+    // your program start here
+    // code below is used as reference
+    // it's possible check file at any time
     for (unsigned i=0; i<exampleInput.size(); i++) {
         handler.addFileName(exampleInput[i]);
         cout<<"Add file:"<<exampleInput[i]<<endl;
@@ -68,6 +71,8 @@ int main(int argc, const char * argv[])
     if (checkPass) {
         cout<<"List file: success"<<endl;
     }
+    
+    // your program end here
     
     end_time=clock();
     cout<<"Total use "<<(end_time-start_time)/CLOCKS_PER_SEC<<" secs"<<endl;
