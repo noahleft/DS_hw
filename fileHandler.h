@@ -10,12 +10,16 @@
 #define __DS_hw3_Tree__fileHandler__
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 class FILE_HANDLER {
 private:
     
 public:
-    
+    void addFileName(std::string);
+    bool searchFileName(std::string);
+    std::vector<std::string> getFileList();
 };
 
 #endif /* defined(__DS_hw3_Tree__fileHandler__) */
