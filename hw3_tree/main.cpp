@@ -20,8 +20,17 @@ int main(int argc, const char * argv[])
     vector<string> exampleCheck;
     vector<string> compareList;
     
-    exampleInput={"Captain_Kirk","Enterprise","Commander_Spock","battleship","starTrek"};
-    exampleCheck={"HAL","Clock","battleship","Major_Tom","Space_Odyssey"};
+    exampleInput.push_back("Captain_Kirk");
+    exampleInput.push_back("Enterprise");
+    exampleInput.push_back("Commander_Spock");
+    exampleInput.push_back("battleship");
+    exampleInput.push_back("starTrek");
+    
+    exampleCheck.push_back("HAL");
+    exampleCheck.push_back("Clock");
+    exampleCheck.push_back("battleship");
+    exampleCheck.push_back("Major_Tom");
+    exampleCheck.push_back("Space_Odyssey");
     
     compareList=exampleInput;
     for (unsigned i=0; i<compareList.size(); i++) {

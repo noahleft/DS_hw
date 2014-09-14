@@ -10,8 +10,10 @@
 #define __DS_hw3_Tree__fileHandler__
 
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <vector>
+#include <algorithm>
+#include <stdlib.h>
 
 class FILE_HANDLER {
 private:
