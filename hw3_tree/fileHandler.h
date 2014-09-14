@@ -17,6 +17,7 @@
 
 class FILE_HANDLER {
 private:
+    std::vector<std::string> fileList;
     
 public:
     void addFileName(std::string);
