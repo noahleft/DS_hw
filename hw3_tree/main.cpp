@@ -9,82 +9,95 @@
 #include <iostream>
 #include "fileHandler.h"
 #include <ctime>
+#include <fstream>
 using namespace::std;
 
 FILE_HANDLER handler;
 
+bool CompareListResult(string &g,vector<string> &r) {
+    string::size_type idx;
+    
+    unsigned tmpidx=0;
+    while (g.size()!=0) {
+        idx=g.find(',');
+        string cmp_str;
+        if (idx!=string::npos) {
+            cmp_str=g.substr(0,idx);
+            g=g.substr(idx+1);
+        }
+        else {
+            cmp_str=g;
+            g="";
+        }
+        if (tmpidx==r.size()) {
+            return false;
+        }
+        if (cmp_str.compare(r[tmpidx])!=0) {
+            return false;
+        }
+        tmpidx++;
+    }
+    if (tmpidx!=r.size()) {
+        return false;
+    }
+    return true;
+}
+
 int main(int argc, const char * argv[])
 {
     cout<<"DS HW3 File system control"<<endl;
-    vector<string> exampleInput;
-    vector<string> exampleCheck;
-    vector<string> compareList;
-    
-    exampleInput.push_back("Captain_Kirk");
-    exampleInput.push_back("Enterprise");
-    exampleInput.push_back("Commander_Spock");
-    exampleInput.push_back("battleship");
-    exampleInput.push_back("starTrek");
-    
-    exampleCheck.push_back("HAL");
-    exampleCheck.push_back("Clock");
-    exampleCheck.push_back("battleship");
-    exampleCheck.push_back("Major_Tom");
-    exampleCheck.push_back("Space_Odyssey");
-    
-    compareList=exampleInput;
-    for (unsigned i=0; i<compareList.size(); i++) {
-        for (unsigned j=i+1; j<compareList.size(); j++) {
-            if (strcmp(compareList[i].c_str(), compareList[j].c_str())>0) {
-                swap(compareList[i], compareList[j]);
-            }
-        }
+    vector<string> seqList;
+    fstream infile("testcase",ios::in);
+    while (!infile.eof()) {
+        string str;
+        getline(infile, str);
+        seqList.push_back(str);
     }
+    
+    unsigned no_success=0;
+    unsigned no_fail=0;
     
     clock_t start_time,end_time;
     start_time=clock();
     
-    // your program start here
-    // code below is used as reference
-    // it's possible check file at any time
-    for (unsigned i=0; i<exampleInput.size(); i++) {
-        handler.addFileName(exampleInput[i]);
-        cout<<"Add file:"<<exampleInput[i]<<endl;
-    }
+    fstream checkIn("checkResult",ios::in);
+    fstream listIn("listResult",ios::in);
     
-    for (unsigned i=0; i<exampleCheck.size(); i++) {
-        if (handler.searchFileName(exampleCheck[i])==true) {
-            cout<<"Check file:"<<exampleCheck[i]<<" exists"<<endl;
+    for (unsigned i=0; i<seqList.size(); i++) {
+        if (seqList[i][0]=='A') {
+            handler.addFileName(seqList[i].substr(2));
         }
-        else {
-            cout<<"Check file:"<<exampleCheck[i]<<" doesn't exist"<<endl;
+        else if (seqList[i][0]=='C') {
+            bool tmp_result=handler.searchFileName(seqList[i].substr(2));
+            string result;
+            getline(checkIn, result);
+            if (tmp_result && result[0]=='1') {
+                no_success++;
+            }
+            else if (!tmp_result && result[0]=='0') {
+                no_success++;
+            }
+            else {
+                no_fail++;
+            }
         }
-    }
-    
-    vector<string> fileList;
-    bool checkPass=true;
-    fileList=handler.getFileList();
-    if (fileList.size()!=compareList.size()) {
-        cout<<"List file: unequal size"<<endl;
-        checkPass=false;
-    }
-    else {
-        for (unsigned i=0; i<fileList.size(); i++) {
-            if (strcmp(fileList[i].c_str(), compareList[i].c_str())!=0) {
-                cout<<"List file: fail"<<endl;
-                checkPass=false;
-                break;
+        else if(seqList[i][0]=='L'){
+            vector<string> tmp_result=handler.getFileList();
+            string result;
+            getline(listIn, result);
+            result.erase(result.end());
+            if (CompareListResult(result,tmp_result)) {
+                no_success++;
+            }
+            else {
+                no_fail++;
             }
         }
     }
-    if (checkPass) {
-        cout<<"List file: success"<<endl;
-    }
-    
-    // your program end here
     
     end_time=clock();
-    cout<<"Total use "<<(end_time-start_time)/CLOCKS_PER_SEC<<" secs"<<endl;
+    cout<<"Total use  "<<(end_time-start_time)/CLOCKS_PER_SEC<<" secs"<<endl;
+    cout<<"Total pass "<<no_success<<" cases and fail "<<no_fail<<" cases"<<endl;
     return 0;
 }
 
