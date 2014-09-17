@@ -85,7 +85,6 @@ int main(int argc, const char * argv[])
             vector<string> tmp_result=handler.getFileList();
             string result;
             getline(listIn, result);
-            result.erase(result.end());
             if (CompareListResult(result,tmp_result)) {
                 no_success++;
             }
