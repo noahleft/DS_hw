@@ -95,8 +95,8 @@ int main(int argc, const char * argv[])
     }
     
     end_time=clock();
-    cout<<"Total use  "<<(end_time-start_time)/CLOCKS_PER_SEC<<" secs"<<endl;
-    cout<<"Total pass "<<no_success<<" cases and fail "<<no_fail<<" cases"<<endl;
+    cout<<"Total use  "<<double(end_time-start_time)/CLOCKS_PER_SEC<<" k-clocks"<<endl;
+    cout<<"Total pass "<<100*no_success/(no_success+no_fail)<<" percetages of cases"<<endl;
     return 0;
 }
 
