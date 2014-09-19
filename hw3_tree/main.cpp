@@ -46,6 +46,13 @@ bool CompareListResult(string &g,vector<string> &r) {
 int main(int argc, const char * argv[])
 {
     cout<<"DS HW3 File system control"<<endl;
+    
+    FILE_HANDLER exampleCase;
+    
+    
+    
+    
+    
     vector<string> seqList;
     fstream infile("testcase",ios::in);
     while (!infile.eof()) {
