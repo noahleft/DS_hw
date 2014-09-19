@@ -46,21 +46,26 @@ bool CompareListResult(string &g,vector<string> &r) {
 int main(int argc, const char * argv[])
 {
     cout<<"DS HW3 File system control"<<endl;
-    
+    //example check
     FILE_HANDLER exampleCase;
     bool checkPass=true;
-    exampleCase.addFileName("Capatain_Kirk");
+    exampleCase.addFileName("Captain_Kirk");
     exampleCase.addFileName("Enterprise");
     exampleCase.addFileName("Commander_Spock");
     exampleCase.addFileName("battleship");
     checkPass&=!exampleCase.searchFileName("HAL");
     exampleCase.addFileName("starTrek");
-    exampleCase.addFileName("Clock");
+    exampleCase.searchFileName("Clock");
     checkPass&=exampleCase.searchFileName("battleship");
     checkPass&=!exampleCase.searchFileName("Major_Tom");
     
     vector<string> fileList;
     vector<string> compareList;
+    compareList.push_back("Captain_Kirk");
+    compareList.push_back("Commander_Spock");
+    compareList.push_back("Enterprise");
+    compareList.push_back("battleship");
+    compareList.push_back("starTrek");
     fileList=exampleCase.getFileList();
     if (fileList.size()!=compareList.size()) {
         cout<<"List file: unequal size"<<endl;
@@ -75,15 +80,15 @@ int main(int argc, const char * argv[])
             }
         }
     }
-    if (checkPass) {
-        cout<<"List file: success"<<endl;
-    }
-    
     checkPass&=!exampleCase.searchFileName("Space_Odyssey");
-    
-    
-    
-    
+    //end of example check
+    if (!checkPass) {
+        cout<<"Example case "<<0<<" (fail)"<<endl;
+        cout<<"Total use  "<<120<<" secs"<<endl;
+        cout<<"Total pass "<<0<<" percetages of cases"<<endl;
+        return 0;
+    }
+    //leader board check
     vector<string> seqList;
     fstream infile("testcase",ios::in);
     while (!infile.eof()) {
@@ -133,6 +138,7 @@ int main(int argc, const char * argv[])
     }
     
     end_time=clock();
+    cout<<"Example case "<<1<<" (success)"<<endl;
     cout<<"Total use  "<<double(end_time-start_time)/CLOCKS_PER_SEC<<" secs"<<endl;
     cout<<"Total pass "<<100*no_success/(no_success+no_fail)<<" percetages of cases"<<endl;
     return 0;
