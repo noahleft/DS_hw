@@ -48,7 +48,38 @@ int main(int argc, const char * argv[])
     cout<<"DS HW3 File system control"<<endl;
     
     FILE_HANDLER exampleCase;
+    bool checkPass=true;
+    exampleCase.addFileName("Capatain_Kirk");
+    exampleCase.addFileName("Enterprise");
+    exampleCase.addFileName("Commander_Spock");
+    exampleCase.addFileName("battleship");
+    checkPass&=!exampleCase.searchFileName("HAL");
+    exampleCase.addFileName("starTrek");
+    exampleCase.addFileName("Clock");
+    checkPass&=exampleCase.searchFileName("battleship");
+    checkPass&=!exampleCase.searchFileName("Major_Tom");
     
+    vector<string> fileList;
+    vector<string> compareList;
+    fileList=exampleCase.getFileList();
+    if (fileList.size()!=compareList.size()) {
+        cout<<"List file: unequal size"<<endl;
+        checkPass=false;
+    }
+    else {
+        for (unsigned i=0; i<fileList.size(); i++) {
+            if (strcmp(fileList[i].c_str(), compareList[i].c_str())!=0) {
+                cout<<"List file: fail"<<endl;
+                checkPass=false;
+                break;
+            }
+        }
+    }
+    if (checkPass) {
+        cout<<"List file: success"<<endl;
+    }
+    
+    checkPass&=!exampleCase.searchFileName("Space_Odyssey");
     
     
     
